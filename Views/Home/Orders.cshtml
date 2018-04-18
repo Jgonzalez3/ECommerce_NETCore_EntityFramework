@@ -1,0 +1,74 @@
+﻿@{
+    ViewData["Title"] = "Orders";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+
+
+    
+    <div class="row">
+        <h3>Add a new order</h3>
+    </div>
+    <form action="orders/add" method="POST">
+        <div class="row">
+            <div class="col-4">
+                <span>Customer  </span>
+            </div>
+            <div class="col-4">
+                <select name="CustomerId">
+                    @foreach(var customer in @ViewBag.Customers)
+                    {
+                        <option value=@customer.CustomerId>@customer.name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <span>Order  </span>
+            </div>
+            <div class="col">
+                <input type="number" min="1" name="quantity" value="1">
+            </div>
+            <div class="col">
+                <select name="ProductId">
+                    @foreach(var product in @ViewBag.Products)
+                    {
+                        <option value=@product.ProductId>@product.name</option>
+                    }
+                </select>
+            </div>
+        </div>@TempData["invalidorder"]
+        <div class="row">
+            <div class="col">
+                <button class="btn-primary" type="submit">Order</button>
+            </div>
+        </div>
+    </form>
+<div class="row">
+    <div class="col">
+        <input type="text" name="orderfilter" placeholder="filter...">
+    </div>
+</div>
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <th class="col">Customer Name</th>
+            <th class="col">Product</th>
+            <th class="col">Quantity</th>
+            <th class="col">Order Date</th>
+        </thead>
+        <tbody>
+            @foreach(var customer in @ViewBag.Customerorders)
+            {
+                <tr>
+                    <td>@customer.customer.name</td>
+                    <td>@customer.product.name</td>
+                    <td>@customer.quantity</td>
+                    <td>@customer.created_at.ToString("MMMM d yyyy")</td>
+                </tr>
+            }
+            <!-- Razor for table Orders from query join all three tables -->
+        </tbody>
+    </table>
+</div>

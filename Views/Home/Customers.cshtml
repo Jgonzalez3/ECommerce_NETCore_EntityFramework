@@ -1,0 +1,52 @@
+@{
+    ViewData["Title"] = "Customers";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+
+<div class="container">
+    <div class="row">
+        <h3>Add a new customer</h3>
+    </div>
+    <form class="form-inline" action="customers/addcustomer" method="POST">
+            <div class="form-inline">
+                <span>Customer Name: </span>
+            </div>
+            <div class="form-inline">
+                <input type="text" name="name">
+            </div>
+            <div class="form-inline">
+                <button class="btn-primary" type="submit">Add</button>
+            </div>
+    </form>
+</div>
+<br>
+<div class="row">
+    <div class="col">
+        <input type="text" name="namesearch" placeholder="search name...">
+    </div>
+</div>
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <th class="col">Customer Name</th>
+            <th class="col">Created Date</th>
+            <th class="col">Actions</th>
+        </thead>
+        <tbody>
+            @foreach(var customer in @ViewBag.Customers)
+            {
+                <tr>
+                    <td class=>@customer.name</td>
+                    <td>@customer.created_at.ToString("MMMM dd yyyy")</td>
+                    <td><form action="/customers/remove" method="POST">
+                    <input type="hidden" name="customerid" value=@customer.CustomerId>
+                        <input type="hidden">
+                        <button class="btn-danger" type="submit">Remove</button>
+                    </form></td>
+                </tr>
+            }
+            
+        </tbody>
+    </table>
+</div>

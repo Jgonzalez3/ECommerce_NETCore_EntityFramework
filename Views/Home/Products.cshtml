@@ -1,0 +1,46 @@
+﻿@model E_Commerce.Models.ProductViewModel
+@{
+    ViewData["Title"] = "Products";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+
+<div class="row">
+    <div class="col-2" style="display: inline-block">
+        <form style="display: inline" action="filterproducts" method="POST">
+            <input type="text" name="productsearch" placeholder="search...">
+            <button class="btn-primary" type="submit">Filter</button>
+        </form>
+        <br>
+        <h3 class="col-2">Add a new product</h3>
+        <form class="form" asp-controller="Home" asp-action="products/addproduct" method="POST">
+            <p>Name: <span asp-validation-for="name"></span></p>
+            <input type="text" name="name" placeholder="name...">
+            <p>Image (url):<span asp-validation-for="image"></span></p>
+            <input type="text" name="image" placeholder="http://">
+            <p>Description:<span asp-validation-for="description"></span></p>
+            <textarea type="text" name="description"></textarea>
+            <p>Unit Price: <span asp-validation-for="price"></span></p>
+            <input type="number" name="price" min="0" step="0.01" placeholder="19.99">
+            <p>Initial Quantity: <span asp-validation-for="quantity"></span></p>
+            <input type="number" name="quantity" min="1" max="10000" value="1">
+            <br><br>
+            <button class="btn-primary" type="submit">Create</button>
+        </form>
+    </div>
+    <div class="col" style="text-align: center; display: inline-block; vertical-align: top;">
+        @foreach(var product in @ViewBag.Products)
+        {
+            <div style="display: inline-block; margin: 10px;">
+                <img src=@product.image alt="product image">
+                <p class="col-1">@product.name</p>
+                <p class="col-1">(@product.quantity left)</p>
+                <p class="col-1">$@product.price</p>
+            </div>
+        }
+    </div>
+</div>
+<div class="row" style="text-align: center;">
+    <a>show more...</a>
+</div>
+

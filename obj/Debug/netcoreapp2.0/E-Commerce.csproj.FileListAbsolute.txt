@@ -1,0 +1,10 @@
+C:\Users\Javier Gonzalez\Documents\CodingDojo\Bootcamp\C#\ORM\E-Commerce\obj\Debug\netcoreapp2.0\E-Commerce.csproj.CoreCompileInputs.cache
+C:\Users\Javier Gonzalez\Documents\CodingDojo\Bootcamp\C#\ORM\E-Commerce\obj\Debug\netcoreapp2.0\E-Commerce.AssemblyInfoInputs.cache
+C:\Users\Javier Gonzalez\Documents\CodingDojo\Bootcamp\C#\ORM\E-Commerce\obj\Debug\netcoreapp2.0\E-Commerce.AssemblyInfo.cs
+C:\Users\Javier Gonzalez\Documents\CodingDojo\Bootcamp\C#\ORM\E-Commerce\bin\Debug\netcoreapp2.0\E-Commerce.deps.json
+C:\Users\Javier Gonzalez\Documents\CodingDojo\Bootcamp\C#\ORM\E-Commerce\bin\Debug\netcoreapp2.0\E-Commerce.runtimeconfig.json
+C:\Users\Javier Gonzalez\Documents\CodingDojo\Bootcamp\C#\ORM\E-Commerce\bin\Debug\netcoreapp2.0\E-Commerce.runtimeconfig.dev.json
+C:\Users\Javier Gonzalez\Documents\CodingDojo\Bootcamp\C#\ORM\E-Commerce\bin\Debug\netcoreapp2.0\E-Commerce.dll
+C:\Users\Javier Gonzalez\Documents\CodingDojo\Bootcamp\C#\ORM\E-Commerce\bin\Debug\netcoreapp2.0\E-Commerce.pdb
+C:\Users\Javier Gonzalez\Documents\CodingDojo\Bootcamp\C#\ORM\E-Commerce\obj\Debug\netcoreapp2.0\E-Commerce.dll
+C:\Users\Javier Gonzalez\Documents\CodingDojo\Bootcamp\C#\ORM\E-Commerce\obj\Debug\netcoreapp2.0\E-Commerce.pdb
