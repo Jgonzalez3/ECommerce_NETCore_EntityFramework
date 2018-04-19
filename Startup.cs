@@ -11,17 +11,22 @@ using Microsoft.Extensions.Logging;
 using E_Commerce.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Stripe;
 
 namespace E_Commerce
 {
+    public class StripeSettings{
+            public string SecretKey {get;set;}
+            public string PublishableKey {get;set;}
+    }
     public class Startup
     {
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
         public IConfiguration Configuration { get; private set;}
+        
         public Startup(IHostingEnvironment env){
             var builder = new ConfigurationBuilder()
             .SetBasePath(env.ContentRootPath)
@@ -31,14 +36,14 @@ namespace E_Commerce
         }
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
             services.AddDbContext<E_CommerceContext>(options => options.UseNpgsql(Configuration["DBInfo:ConnectionString"]));
             services.AddSession();
             services.AddMvc();
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            StripeConfiguration.SetApiKey(Configuration.GetSection("Stripe")["SecretKey"]);
             loggerFactory.AddConsole();
             if (env.IsDevelopment())
             {

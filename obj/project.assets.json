@@ -3134,6 +3134,21 @@
           "lib/netstandard1.5/StackExchange.Redis.StrongName.dll": {}
         }
       },
+      "Stripe.net/15.6.0": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1",
+          "Newtonsoft.Json": "9.0.1",
+          "System.Console": "4.3.0",
+          "System.Security.Cryptography.Algorithms": "4.3.0"
+        },
+        "compile": {
+          "lib/netstandard1.2/Stripe.net.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.2/Stripe.net.dll": {}
+        }
+      },
       "System.AppContext/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -8029,6 +8044,17 @@
         "stackexchange.redis.strongname.nuspec"
       ]
     },
+    "Stripe.net/15.6.0": {
+      "sha512": "kt2T+oOKrG/S8IAn44yPn1wHHzh+ekD9A1Vr0Znh34wvsYe6bcX2LlBDcxWnHvGenZDMB+cDDQU/vVaRzhmoyQ==",
+      "type": "package",
+      "path": "stripe.net/15.6.0",
+      "files": [
+        "lib/net45/Stripe.net.dll",
+        "lib/netstandard1.2/Stripe.net.dll",
+        "stripe.net.15.6.0.nupkg.sha512",
+        "stripe.net.nuspec"
+      ]
+    },
     "System.AppContext/4.3.0": {
       "sha512": "fKC+rmaLfeIzUhagxY17Q9siv/sPrjjKcfNg1Ic8IlQkZLipo8ljcaZQu4VtI4Jqbzjc2VTjzGLF6WmsRXAEgA==",
       "type": "package",
@@ -12588,7 +12614,9 @@
       "Microsoft.EntityFrameworkCore.Design >= 2.0.1",
       "Microsoft.EntityFrameworkCore.Tools >= 2.0.1",
       "Microsoft.NETCore.App >= 2.0.0",
-      "Npgsql.EntityFrameworkCore.PostgreSQL >= 2.0.1"
+      "Newtonsoft.json >= 10.0.1",
+      "Npgsql.EntityFrameworkCore.PostgreSQL >= 2.0.1",
+      "Stripe.net >= 15.6.0"
     ]
   },
   "packageFolders": {
@@ -12647,9 +12675,17 @@
             "version": "[2.0.0, )",
             "autoReferenced": true
           },
+          "Newtonsoft.json": {
+            "target": "Package",
+            "version": "[10.0.1, )"
+          },
           "Npgsql.EntityFrameworkCore.PostgreSQL": {
             "target": "Package",
             "version": "[2.0.1, )"
+          },
+          "Stripe.net": {
+            "target": "Package",
+            "version": "[15.6.0, )"
           }
         },
         "imports": [

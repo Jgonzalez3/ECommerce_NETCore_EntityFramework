@@ -9,21 +9,22 @@
         <h3>Add a new customer</h3>
     </div>
     <form class="form-inline" action="customers/addcustomer" method="POST">
-            <div class="form-inline">
+            <div class="col-md-2">
                 <span>Customer Name: </span>
             </div>
-            <div class="form-inline">
-                <input type="text" name="name">
+            <div class="col-md-2">
+                <input class="form-control" type="text" name="name">
             </div>
-            <div class="form-inline">
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
                 <button class="btn-primary" type="submit">Add</button>
             </div>
     </form>
 </div>
 <br>
 <div class="row">
-    <div class="col">
-        <input type="text" name="namesearch" placeholder="search name...">
+    <div class="col-md-4" style="text-align: right;">
+        <input class="form-control" type="text" name="namesearch" placeholder="search name...">
     </div>
 </div>
 <div class="container">

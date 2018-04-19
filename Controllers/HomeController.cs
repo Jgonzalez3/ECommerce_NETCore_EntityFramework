@@ -9,16 +9,17 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
 using E_Commerce.Models;
 using Microsoft.EntityFrameworkCore;
+using Stripe;
 
 namespace E_Commerce.Controllers
 {
     public class HomeController : Controller
     {
         private E_CommerceContext _context;
-
         public HomeController(E_CommerceContext context){
             _context = context;
         }
+
         [HttpGet]
         [Route("")]
         public IActionResult Index()
@@ -79,37 +80,6 @@ namespace E_Commerce.Controllers
             _context.SaveChanges();
             return RedirectToAction("Customers");
         }
-
-        [HttpGet]
-        [Route("/products")]
-        public IActionResult Products(){
-            List<Product> Products = _context.Products.ToList();
-            ViewBag.Products = Products;
-            return View("Products");
-        }
-
-        [HttpPost]
-        [Route("/products/addproduct")]
-        public IActionResult AddProduct(ProductViewModel model, Product NewProduct){
-            if(ModelState.IsValid){
-                _context.Products.Add(NewProduct);
-                _context.SaveChanges();
-                return RedirectToAction("Products");
-            }
-            // List<Product> Products = _context.Products.ToList();
-            // ViewBag.Products = Products;
-            return View("Products");
-        }
-        [HttpPost]
-        [Route("/filterproducts")]
-        public IActionResult FilterProducts(string productsearch){
-            List<Product> Allproducts = _context.Products.Where(Product=>Product.name.Contains(productsearch)).ToList();
-            if(Allproducts == null){
-                return View("Products");
-            }
-            ViewBag.Products = Allproducts;
-            return View("Products");
-        }
         [HttpPost]
         [Route("customers/remove")]
         public IActionResult RemoveCustomer(int customerid){
@@ -117,6 +87,56 @@ namespace E_Commerce.Controllers
             _context.Customers.Remove(Deletecustomer);
             _context.SaveChanges();
             return RedirectToAction("Customers");
+        }
+        [HttpGet]
+        [Route("/products")]
+        public IActionResult Products(){
+            ViewBag.Products = _context.Products.ToList();
+            return View("Products");
+        }
+
+        [HttpPost]
+        [Route("/addproduct")]
+        public IActionResult AddProduct(ProductViewModel model, Product NewProduct){
+            if(ModelState.IsValid){
+                _context.Products.Add(NewProduct);
+                _context.SaveChanges();
+                Console.WriteLine("success");
+                return RedirectToAction("Products");
+            }
+            Console.WriteLine("success");
+            ViewBag.Products = _context.Products.ToList();
+            return View("Products");
+        }
+        [HttpPost]
+        [Route("/filterproducts")]
+        public IActionResult FilterProducts(string productsearch){
+            ViewBag.Products = _context.Products.Where(Product=>Product.name.Contains(productsearch)).ToList();
+            return View("Products");
+        }
+        [HttpPost]
+        [Route("/Charge")]
+        public IActionResult Charge(string  stripeEmail, string stripeToken, int amount, string description)
+        {
+            var customers = new StripeCustomerService();
+            var charges = new StripeChargeService();
+
+            var customer = customers.Create(new StripeCustomerCreateOptions {
+            Email = stripeEmail,
+            SourceToken = stripeToken
+            });
+
+            var charge = charges.Create(new StripeChargeCreateOptions {
+            // Amount 500 equals to $5.00 
+            Amount = amount,
+            Description = $"{description}",
+            Currency = "usd",
+            CustomerId = customer.Id
+            });
+            double adjamt = amount;
+            adjamt = adjamt/100;
+            ViewBag.Amount = adjamt;
+            return View();
         }
         public IActionResult Error()
         {
