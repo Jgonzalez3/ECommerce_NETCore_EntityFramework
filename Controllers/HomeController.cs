@@ -33,10 +33,16 @@ namespace E_Commerce.Controllers
         [HttpPost]
         [Route("/filter")]
         public IActionResult FilterDashboard(string search){
-            List<Product> Firstfiveproducts = _context.Products.Where(product => product.name.Contains(search)).Take(5).ToList();
+            if(search == "" || search == " " || search == null){
+                ViewBag.Recentcustomers = "";
+                ViewBag.Recentorders = "";
+                ViewBag.Fiveproducts = "";
+                return View("Index");
+            }
+            List<Product> Firstfiveproducts = _context.Products.Where(product => product.name.ToLower().Contains(search.ToLower())).Take(5).ToList();
             ViewBag.Fiveproducts = Firstfiveproducts;
-            ViewBag.Recentorders = _context.Orders.Include(Customer=>Customer.customer).Include(Product=>Product.product).Where(order=>order.customer.name.Contains(search)).OrderByDescending(Order=>Order.created_at).Take(3);
-            ViewBag.Recentcustomers = _context.Customers.Include(Product=>Product.orders).Where(Customer=>Customer.name.Contains(search)).OrderByDescending(Customer=>Customer.created_at).Take(3);
+            ViewBag.Recentorders = _context.Orders.Include(Customer=>Customer.customer).Include(Product=>Product.product).Where(order=>order.customer.name.ToLower().Contains(search.ToLower())).OrderByDescending(Order=>Order.created_at).Take(3);
+            ViewBag.Recentcustomers = _context.Customers.Include(Product=>Product.orders).Where(Customer=>Customer.name.ToLower().Contains(search.ToLower())).OrderByDescending(Customer=>Customer.created_at).Take(3);
             return View("Index");
         }
 
@@ -76,6 +82,11 @@ namespace E_Commerce.Controllers
         [HttpPost]
         [Route("/customers/addcustomer")]
         public IActionResult AddCustomer(Customer NewCustomer){
+            List<Customer> Samecustomer = _context.Customers.Where(x=>x.name == NewCustomer.name).ToList();
+            if(Samecustomer.Count > 0){
+                TempData["invalidcustomer"] = "Cannot add same customer twice.";
+                return RedirectToAction("Customers");
+            }
             _context.Customers.Add(NewCustomer);
             _context.SaveChanges();
             return RedirectToAction("Customers");
@@ -88,6 +99,19 @@ namespace E_Commerce.Controllers
             _context.SaveChanges();
             return RedirectToAction("Customers");
         }
+
+        [HttpPost]
+        [Route("search-name")]
+        public JsonResult SearchCustomer(string search)
+        {
+            if(String.IsNullOrEmpty(search))
+            {
+                return Json(_context.Customers.ToList());
+            }
+            var cust = _context.Customers.Where(v => v.name.ToLower().Contains(search.ToLower())).ToList();
+            return Json(cust);
+        }
+
         [HttpGet]
         [Route("/products")]
         public IActionResult Products(){
@@ -111,7 +135,11 @@ namespace E_Commerce.Controllers
         [HttpPost]
         [Route("/filterproducts")]
         public IActionResult FilterProducts(string productsearch){
-            ViewBag.Products = _context.Products.Where(Product=>Product.name.Contains(productsearch)).ToList();
+            if(productsearch == "" || productsearch == " " || productsearch == null){
+                ViewBag.Products = "";
+                return View("Products");
+            }
+            ViewBag.Products = _context.Products.Where(Product=>Product.name.ToLower().Contains(productsearch.ToLower())).ToList();
             return View("Products");
         }
         [HttpPost]

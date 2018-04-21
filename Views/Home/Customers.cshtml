@@ -1,12 +1,10 @@
 @{
     ViewData["Title"] = "Customers";
 }
-<h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
 
 <div class="container">
     <div class="row">
-        <h3>Add a new customer</h3>
+        <h3>Add a new customer <span class="text-danger">@TempData["invalidcustomer"]</span></h3>
     </div>
     <form action="customers/addcustomer" method="POST">
             <div class="col-sm-4 col-md-3">
@@ -23,11 +21,13 @@
 <br>
 <div class="row">
     <div class="col-xs-6 col-sm-6 col-md-4" style="text-align: right;">
-        <input class="form-control" type="text" name="namesearch" placeholder="search name...">
+        <form action="/search-name">
+            <input class="form-control" id="search" type="text" name="search" placeholder="search name...">
+        </form>
     </div>
 </div>
 <div class="container">
-    <table class="table table-striped">
+    <table class="table table-striped" id="clist">
         <thead>
             <th class="col">Customer Name</th>
             <th class="col">Created Date</th>
@@ -38,7 +38,7 @@
             {
                 <tr>
                     <td class=>@customer.name</td>
-                    <td>@customer.created_at.ToString("MMMM dd yyyy")</td>
+                    <td>@customer.created_at.ToString("MMM dd yyyy")</td>
                     <td><form action="/customers/remove" method="POST">
                     <input type="hidden" name="customerid" value=@customer.CustomerId>
                         <input type="hidden">
@@ -46,7 +46,6 @@
                     </form></td>
                 </tr>
             }
-            
         </tbody>
     </table>
 </div>

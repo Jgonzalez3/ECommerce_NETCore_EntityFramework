@@ -13,5 +13,10 @@ namespace E_Commerce.Models{
             this.created_at = DateTime.Now;
             this.updated_at = DateTime.Now;
         }
+        public string displayDate {
+            get {
+                return this.created_at.ToString("MMM dd yyyy");
+            }
+        }
     }
 }

@@ -38,7 +38,7 @@
                         <option value=@product.ProductId>@product.name</option>
                     }
                 </select>
-            </div>@TempData["invalidorder"]
+            </div><span class="text-danger">@TempData["invalidorder"]</span>
             <div class="col-xs-2 col-sm-2 col-md-2">
                 <button class="btn btn-primary" type="submit">Order</button>
             </div>
@@ -47,7 +47,7 @@
 <br>
 <div class="row">
     <div class="col-xs-6 col-sm-3 col-md-3">
-        <input class="form-control pull-right" type="text" name="orderfilter" placeholder="filter...">
+        <input class="form-control pull-right" id="searchorder" type="text" name="orderfilter" placeholder="filter...">
     </div>
 </div>
 <div class="container">
@@ -66,7 +66,7 @@
             { double sum = @customer.quantity*@customer.product.price;
                 double amount = sum * 100;
                 int adjamt = (int)amount;
-                <tr>
+                <tr id="olist">
                     <td>@customer.customer.name</td>
                     <td>@customer.product.name</td>
                     <td>@customer.quantity</td>
