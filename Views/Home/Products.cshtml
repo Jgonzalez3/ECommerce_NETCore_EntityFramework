@@ -6,14 +6,14 @@
 <h3>@ViewData["Message"]</h3>
 
 <div class="row">
-    <div class="col-3 col-xs-3 col-sm-3 col-md-3" style="display: inline-block; margin-right:10px">
+    <div class="col-xs-6 col-sm-3 col-md-3">
         <form style="display: inline" action="filterproducts" method="POST">
             <input class="form-control" type="text" name="productsearch" placeholder="search...">
             <br>
-            <button class="btn-primary" type="submit">Filter</button>
+            <button class="btn btn-primary" type="submit">Filter</button>
         </form>
         <br>
-        <h3 class="col-2">Add a new product</h3>
+        <h3>Add a new product</h3>
         <form class="form" asp-controller="Home" asp-action="addproduct" method="POST">
             <p>Name: </p>
             <p><span class="text-danger" asp-validation-for="name"></span></p>
@@ -31,10 +31,10 @@
             <p><span class="text-danger" asp-validation-for="quantity"></span></p>
             <input class="form-control" type="number" name="quantity" min="1" max="10000" value="1">
             <br>
-            <button class="btn-primary" type="submit">Create</button>
+            <button class="btn btn-primary" type="submit">Create</button>
         </form>
     </div>
-    <div class="col-2 col-xs-6 col-sm-8 col-md-8" style="text-align: center; display: inline-block; vertical-align: top;">
+    <div class="col-xs-12 col-sm-9 col-md-9" style="text-align: center; display: inline-block; vertical-align: top;">
         @foreach(var product in @ViewBag.Products)
         {
             <div style="display: inline-block; margin: 10px;">

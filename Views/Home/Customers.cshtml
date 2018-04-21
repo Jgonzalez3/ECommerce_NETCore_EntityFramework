@@ -8,22 +8,21 @@
     <div class="row">
         <h3>Add a new customer</h3>
     </div>
-    <form class="form-inline" action="customers/addcustomer" method="POST">
-            <div class="col-md-2">
-                <span>Customer Name: </span>
+    <form action="customers/addcustomer" method="POST">
+            <div class="col-sm-4 col-md-3">
+                <h4>Customer Name: </h4>
             </div>
-            <div class="col-md-2">
+            <div class="col-xs-8 col-sm-6 col-md-4">
                 <input class="form-control" type="text" name="name">
             </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-2">
-                <button class="btn-primary" type="submit">Add</button>
+            <div class="col-xs-3 col-sm-2 col-md-2">
+                <button class="btn btn-primary" type="submit">Add</button>
             </div>
     </form>
 </div>
 <br>
 <div class="row">
-    <div class="col-md-4" style="text-align: right;">
+    <div class="col-xs-6 col-sm-6 col-md-4" style="text-align: right;">
         <input class="form-control" type="text" name="namesearch" placeholder="search name...">
     </div>
 </div>
@@ -43,7 +42,7 @@
                     <td><form action="/customers/remove" method="POST">
                     <input type="hidden" name="customerid" value=@customer.CustomerId>
                         <input type="hidden">
-                        <button class="btn-danger" type="submit">Remove</button>
+                        <button class="btn btn-danger" type="submit">Remove</button>
                     </form></td>
                 </tr>
             }
