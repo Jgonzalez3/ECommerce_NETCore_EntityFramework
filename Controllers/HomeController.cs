@@ -104,22 +104,17 @@ namespace E_Commerce.Controllers
         [Route("search-name")]
         public JsonResult SearchCustomer(string search)
         {
-            System.Console.WriteLine("SEARCH NAME", search);
-            System.Console.WriteLine(search);
             if(String.IsNullOrEmpty(search))
             { 
                 return Json(_context.Customers.ToList());
             }
             var cust = _context.Customers.Where(v => v.name.ToLower().Contains(search.ToLower())).ToList();
-            System.Console.WriteLine("CUST",cust);
             return Json(cust);
         }
         [HttpPost]
         [Route("search-order")]
         public JsonResult SearchOrder(string searchorder)
         {
-            System.Console.WriteLine("SEARCH ORDER", searchorder);
-            System.Console.WriteLine(searchorder);
             if(String.IsNullOrEmpty(searchorder))
             {
                 System.Console.WriteLine("search");
@@ -127,18 +122,17 @@ namespace E_Commerce.Controllers
                 return Json(empty);
             }
             var order = _context.Orders.Include(Customer=>Customer.customer).Include(Product=>Product.product).Where(x=> x.customer.name.ToLower().Contains(searchorder.ToLower())).ToList();
-            // _context.Orders.Include(Customer=>Customer.customer).Include(Product=>Product.product).ToList();
-            System.Console.WriteLine("ORDER", order);
-            // if(order == null){
-            //     order = _context.Orders.Include(Customer=>Customer.customer).Include(Product=>Product.product).Where(x=> x.product.name.ToLower().Contains(search.ToLower())).ToList();
-            // }
-            
-            // System.Console.WriteLine("ORDER",order);
-            // if(order == null){
-            //     int quant = Int32.Parse(search);
-            //     order = _context.Orders.Include(Customer=>Customer.customer).Include(Product=>Product.product).Where(x=> x.product.quantity.Contains(quant)).ToList();
-            // }
-            // order = _context.Orders.Where(o=> o.ToLower().Contains(search.ToLower()))
+            if(order.Count == 0){
+                order = _context.Orders.Include(Customer=>Customer.customer).Include(Product=>Product.product).Where(x=> x.product.name.ToLower().Contains(searchorder.ToLower())).ToList();
+                System.Console.WriteLine("PRODUCT");
+            }
+            if(order.Count == 0){
+                int quant = Int32.Parse(searchorder);
+                System.Console.WriteLine("Quant", searchorder);
+                System.Console.WriteLine("Quant");
+                System.Console.WriteLine(quant);
+                order = _context.Orders.Include(Customer=>Customer.customer).Include(Product=>Product.product).Where(x=> x.quantity == quant).ToList();
+            }
             return Json(order);
         }
 

@@ -24,6 +24,12 @@ $(document).ready(function(){
             //             </thead>
             //             `
             var strRow;
+            if(res.length == 0){
+                strRow = `
+                            <tr>
+                            </tr>
+                        `
+            }
             res.forEach(e => {
                 let sum = e["quantity"]*e['product']['price'];
                 console.log(sum);
