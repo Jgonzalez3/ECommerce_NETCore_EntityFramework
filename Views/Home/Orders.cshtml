@@ -46,8 +46,10 @@
     </form>
 <br>
 <div class="row">
-    <div class="col-xs-6 col-sm-3 col-md-3">
-        <input class="form-control pull-right" id="searchorder" type="text" name="orderfilter" placeholder="filter...">
+    <div class="col-xs-6 col-sm-3 col-md-3 pull-right">
+        <form action="/search-order">
+            <input class="form-control" id="searchorder" type="text" name="searchorder" placeholder="filter...">
+        </form>
     </div>
 </div>
 <div class="container">
@@ -61,12 +63,12 @@
             <th>Total Price</th>
             <th>Make Payment</th>
         </thead>
-        <tbody>
+        <tbody id="ordersTable">
             @foreach(var customer in @ViewBag.Customerorders)
             { double sum = @customer.quantity*@customer.product.price;
                 double amount = sum * 100;
                 int adjamt = (int)amount;
-                <tr id="olist">
+                <tr>
                     <td>@customer.customer.name</td>
                     <td>@customer.product.name</td>
                     <td>@customer.quantity</td>
@@ -90,3 +92,4 @@
         </tbody>
     </table>
 </div>
+<script src="~/js/orderSearch.js"></script>

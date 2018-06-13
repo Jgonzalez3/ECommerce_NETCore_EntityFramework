@@ -1,1 +1,4 @@
 appsettings.json
+.vscode/
+bin/
+obj/
