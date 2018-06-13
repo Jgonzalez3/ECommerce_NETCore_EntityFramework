@@ -39,7 +39,10 @@ namespace E_Commerce
             services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
             services.AddDbContext<E_CommerceContext>(options => options.UseNpgsql(Configuration["DBInfo:ConnectionString"]));
             services.AddSession();
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(
+                options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
         }
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {

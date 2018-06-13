@@ -123,7 +123,8 @@ namespace E_Commerce.Controllers
             if(String.IsNullOrEmpty(searchorder))
             {
                 System.Console.WriteLine("search");
-                return Json(_context.Orders.Include(Customer=>Customer.customer).Include(Product=>Product.product).ToList());
+                var empty = _context.Orders.Include(Customer=>Customer.customer).Include(Product=>Product.product).ToList();
+                return Json(empty);
             }
             var order = _context.Orders.Include(Customer=>Customer.customer).Include(Product=>Product.product).Where(x=> x.customer.name.ToLower().Contains(searchorder.ToLower())).ToList();
             // _context.Orders.Include(Customer=>Customer.customer).Include(Product=>Product.product).ToList();
