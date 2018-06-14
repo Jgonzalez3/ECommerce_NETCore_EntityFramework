@@ -117,22 +117,22 @@ namespace E_Commerce.Controllers
         {
             if(String.IsNullOrEmpty(searchorder))
             {
-                System.Console.WriteLine("search");
                 var empty = _context.Orders.Include(Customer=>Customer.customer).Include(Product=>Product.product).ToList();
                 return Json(empty);
             }
             var order = _context.Orders.Include(Customer=>Customer.customer).Include(Product=>Product.product).Where(x=> x.customer.name.ToLower().Contains(searchorder.ToLower())).ToList();
             if(order.Count == 0){
                 order = _context.Orders.Include(Customer=>Customer.customer).Include(Product=>Product.product).Where(x=> x.product.name.ToLower().Contains(searchorder.ToLower())).ToList();
-                System.Console.WriteLine("PRODUCT");
             }
             if(order.Count == 0){
                 int quant = Int32.Parse(searchorder);
-                System.Console.WriteLine("Quant", searchorder);
-                System.Console.WriteLine("Quant");
-                System.Console.WriteLine(quant);
                 order = _context.Orders.Include(Customer=>Customer.customer).Include(Product=>Product.product).Where(x=> x.quantity == quant).ToList();
             }
+            // ADD FILTER For date? Regex?
+            // if(order.Count == 0){
+            // 
+            //     order = _context.Orders.Include(Customer=>Customer.customer).Include(Product=>Product.product).Where(x=> x.created_at.).ToList();
+            // }
             return Json(order);
         }
 
@@ -157,15 +157,17 @@ namespace E_Commerce.Controllers
             return View("Products");
         }
         [HttpPost]
-        [Route("/filterproducts")]
-        public IActionResult FilterProducts(string productsearch){
-            if(productsearch == "" || productsearch == " " || productsearch == null){
-                ViewBag.Products = "";
-                return View("Products");
+        [Route("/product-search")]
+        public JsonResult ProductSearch(string productsearch){
+            if(String.IsNullOrEmpty(productsearch))
+            {
+                var empty = _context.Products.ToList();
+                return Json(empty);
             }
-            ViewBag.Products = _context.Products.Where(Product=>Product.name.ToLower().Contains(productsearch.ToLower())).ToList();
-            return View("Products");
+            var product = _context.Products.Where(x => x.name.ToLower().Contains(productsearch.ToLower())).ToList();
+            return Json(product);
         }
+
         [HttpPost]
         [Route("/Charge")]
         public IActionResult Charge(string  stripeEmail, string stripeToken, int amount, string description)

@@ -15,9 +15,7 @@ $(document).ready(function(){
        method: 'post', /* Which HTTP verb? */
        data: $(e.currentTarget.form).serialize(), /* Any data to send along? */
        success: function(res) { /* What code should we run when the server responds? */
-            //$('#placeholder3').html(serverResponse)
-            console.log(res);
-
+            // console.log(res);
             var strRow = `
                         <thead>
                             <th>Customer Name</th>

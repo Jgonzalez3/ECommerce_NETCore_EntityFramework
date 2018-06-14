@@ -7,10 +7,8 @@
 
 <div class="row">
     <div class="col-xs-6 col-sm-3 col-md-3">
-        <form style="display: inline" action="filterproducts" method="POST">
-            <input class="form-control" type="text" name="productsearch" placeholder="search...">
-            <br>
-            <button class="btn btn-primary" type="submit">Filter</button>
+        <form style="display: inline" action="product-search">
+            <input id="productsearch" class="form-control" type="text" name="productsearch" placeholder="search...">
         </form>
         <br>
         <h3>Add a new product</h3>
@@ -34,18 +32,19 @@
             <button class="btn btn-primary" type="submit">Create</button>
         </form>
     </div>
-    <div class="col-xs-12 col-sm-9 col-md-9" style="text-align: center; display: inline-block; vertical-align: top;">
-        @foreach(var product in @ViewBag.Products)
-        {
+    <div id="productsBox" class="col-xs-12 col-sm-9 col-md-9" style="text-align: center; display: inline-block; vertical-align: top;">
+            @foreach(var product in @ViewBag.Products)
+            {
             <div style="display: inline-block; margin: 10px;">
                 <img style="height: 110px; width: 110px;" src=@product.image alt="product image">
                 <p class="col-1">@product.name</p>
                 <p class="col-1">(@product.quantity left)</p>
                 <label>$@product.price</label>
             </div>
-        }
+            }
         <p><a href="/products">show more...</a></p>
     </div>
 </div>
+<script src="~/js/productSearch.js"></script>
 
 

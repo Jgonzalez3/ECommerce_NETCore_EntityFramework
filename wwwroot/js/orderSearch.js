@@ -13,16 +13,7 @@ $(document).ready(function(){
        method: 'post', /* Which HTTP verb? */
        data: $(e.currentTarget.form).serialize(), /* Any data to send along? */
        success: function(res) { /* What code should we run when the server responds? */
-            //$('#placeholder3').html(serverResponse)
-            console.log(res);
-
-            // var strRow = `
-            //             <thead>
-            //                 <th>Customer Name</th>
-            //                 <th>Created Date</th>
-            //                 <th>Actions</th>
-            //             </thead>
-            //             `
+            // console.log(res);
             var strRow;
             if(res.length == 0){
                 strRow = `
@@ -32,10 +23,8 @@ $(document).ready(function(){
             }
             res.forEach(e => {
                 let sum = e["quantity"]*e['product']['price'];
-                console.log(sum);
                 let sumFixed = sum.toFixed(2);
                 let adjAmt = sumFixed * 100;
-                console.log("adjAMT",adjAmt);
                 strRow += `
                             <tr>
                                 <td>${e["customer"]["name"]}</td>
