@@ -26,12 +26,15 @@ $(document).ready(function(){
                     strRow += `
                     <div style="display: inline-block; margin: 10px;">
                         <img style="height: 110px; width: 110px;" src="${e['image']}" alt="${e["name"]}">
-                            <p class="col-1">${e["name"]}</p>
-                            <p class="col-1">(${e["quantity"]} left)</p>
-                            <label>$${e["price"]}</label>
-                        </div>
+                        <p class="col-1">${e["name"]}</p>
+                        <p class="col-1">(${e["quantity"]} left)</p>
+                        <label>$${e["price"]}</label>
+                    </div>
                     `
                 });
+                strRow += `
+                    <p><a href="/products">show more...</a></p>
+                    `
             }
             $("#productsBox").html(strRow);
         }

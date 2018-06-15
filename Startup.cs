@@ -40,7 +40,8 @@ namespace E_Commerce
             services.AddDbContext<E_CommerceContext>(options => options.UseNpgsql(Configuration["DBInfo:ConnectionString"]));
             services.AddSession();
             services.AddMvc()
-            // below EXTRA needed for ENTITY ORM Queries joined tables when sent as JSON 
+            // Loading related Data and serialization.
+            // below EXTRA needed for ENTITY ORM Queries joined tables...configues Json.NET to ignore cycles that it finds in the object graph.
                 .AddJsonOptions(
                 options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
