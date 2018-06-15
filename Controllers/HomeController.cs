@@ -139,7 +139,7 @@ namespace E_Commerce.Controllers
         [HttpGet]
         [Route("/products")]
         public IActionResult Products(){
-            ViewBag.Products = _context.Products.ToList();
+            ViewBag.Products = _context.Products.Take(20).ToList();
             return View("Products");
         }
 

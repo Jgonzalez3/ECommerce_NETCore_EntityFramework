@@ -6,57 +6,84 @@
 <div class="row">
     <div class="col-sm-4 col-md-4">
         <form style="display: inline-block" action="/filter" method="POST">
-            <input class="form-control" type="text" name="search" placeholder="search...">
+            <input id="dashboardSearch" class="form-control" type="text" name="search" placeholder="search...">
             <br>
             <button class="btn btn-info" type="submit">Filter</button>
         </form>
     </div>
     <div class="col-xs-12 col-sm-8 col-md-8" style="display: inline-block; vertical-align: top;">
-        @foreach(var product in @ViewBag.Fiveproducts)
-        {
-            <div style="display: inline-block; margin: 10px;">
-                <img style="height: 110px; width: 110px;" src=@product.image alt="@product.name image">
-                <p class="col-1">@product.name</p>
-                <p class="col-1">(@product.quantity left)</p>
-                <p class="col-1">$@product.price</p>
-            </div>
-        }
-        <p style="text-align: center;"><a href="/products">show more...</a></p>
+        <div id="firstFive">
+            @foreach(var product in @ViewBag.Fiveproducts)
+            {
+                <div style="display: inline-block; margin: 10px;">
+                    <img style="height: 110px; width: 110px;" src=@product.image alt="@product.name image">
+                    <p class="col-1">@product.name</p>
+                    <p class="col-1">(@product.quantity left)</p>
+                    <p class="col-1">$@product.price</p>
+                </div>
+            }
+        </div>
+        <p style="text-align: center;"><a href="/products">show more products...</a></p>
         <br>
         <h4>Recent Orders</h4>
-        @foreach(var order in @ViewBag.Recentorders)
-        {    double hours = DateTime.Now.Subtract(@order.created_at).TotalHours;
-            int duration = (int)hours;
-            if(hours>24)
-            {
-                double days = DateTime.Now.Subtract(@order.created_at).TotalDays;
-                duration = (int)days;
-                <p>@order.customer.name purchased @order.quantity @order.product.name... (@duration days ago)</p>
+        <div id="recentOrders">
+            @foreach(var order in @ViewBag.Recentorders)
+            {    double hours = DateTime.Now.Subtract(@order.created_at).TotalHours;
+                int duration = (int)hours;
+                if(hours>23)
+                {
+                    double days = DateTime.Now.Subtract(@order.created_at).TotalDays;
+                    duration = (int)days;
+                    if(hours>23)
+                    {
+                        <p>@order.customer.name purchased @order.quantity @order.product.name... (@duration day ago)</p>
+                    }
+                    else{
+                        <p>@order.customer.name purchased @order.quantity @order.product.name... (@duration days ago)</p>
+                    }
+                }
+                else
+                {
+                    if(hours < 2)
+                    {
+                        <p>@order.customer.name purchased @order.quantity @order.product.name... (@duration hour ago)</p>
+                    }
+                    else
+                    {
+                        <p>@order.customer.name purchased @order.quantity @order.product.name... (@duration hours ago)</p>
+                    }
+                }
             }
-            else
-            {
-                <p>@order.customer.name purchased @order.quantity @order.product.name... (@duration hours ago)</p>
-            }
-        }
-
+        </div>
         <p style="text-align: center;"><a href="/orders">show all orders...</a></p>
         <br>
         <h4>New Customers</h4>
-        @foreach(var customer in @ViewBag.Recentcustomers)
-        {
-            double days = DateTime.Now.Subtract(@customer.created_at).TotalDays;
-            int duration = (int)days;
-            if(days>7)
+        <div id="newCustomers">
+            @foreach(var customer in @ViewBag.Recentcustomers)
             {
-                int weeks = duration/7;
-                <p>@customer.name joined the store. (@weeks weeks ago)</p>
+                double days = DateTime.Now.Subtract(@customer.created_at).TotalDays;
+                int duration = (int)days;
+                if(days>7)
+                {
+                    int weeks = duration/7;
+                    if(days < 2)
+                    {
+                        <p>@customer.name joined the store. (@weeks week ago)</p>
+                    }
+                    <p>@customer.name joined the store. (@weeks weeks ago)</p>
+                }
+                else if(days >= 2)
+                {
+                    <p>@customer.name joined the store. (@duration days ago)</p>
+                }
+                else
+                {
+                    <p>@customer.name joined the store. (@duration day ago)</p>
+                }
             }
-            else
-            {
-                <p>@customer.name joined the store. (@duration days ago)</p>
-            }
-        }
+        </div>
         <p style="text-align: center;"><a href="/customers">show all customers...</a></p>
+        <br>
     </div>
 </div>
 
