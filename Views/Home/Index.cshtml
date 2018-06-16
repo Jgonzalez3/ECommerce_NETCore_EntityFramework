@@ -19,7 +19,7 @@
                     <img style="height: 110px; width: 110px;" src=@product.image alt="@product.name image">
                     <p class="col-1">@product.name</p>
                     <p class="col-1">(@product.quantity left)</p>
-                    <p class="col-1">$@product.price</p>
+                    <p class="col-1">@product.price.ToString("C2")</p>
                 </div>
             }
         </div>

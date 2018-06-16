@@ -72,9 +72,9 @@
                     <td>@customer.customer.name</td>
                     <td>@customer.product.name</td>
                     <td>@customer.quantity</td>
-                    <td>$@customer.product.price</td>
+                    <td>@customer.product.price.ToString("C2")</td>
                     <td>@customer.created_at.ToString("MMMM d yyyy")</td>
-                    <td>$@sum</td>
+                    <td>@sum.ToString("C2")</td>
                     <td><form action="Charge" method="POST">
                     <input type="hidden" name="amount" value=@adjamt>
                     <input type="hidden" name="description" value=@customer.product.name>
