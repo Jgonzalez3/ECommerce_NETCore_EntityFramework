@@ -30,7 +30,7 @@ $(document).ready(function(){
                                 <input type="hidden" name="customerid" value="${e.customerid}">
                                 <td>${e["name"]}</td>
                                 <td>${e["displayDate"]}</td>
-                                <td><button class="btn-danger" type="submit">Remove</td>
+                                <td><button class="btn btn-danger" type="submit">Remove</td>
                             </form>
                         </tr>
                         `
